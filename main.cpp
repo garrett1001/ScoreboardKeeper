@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
@@ -9,9 +11,11 @@ const int MIN_PERIODS = 1;
 const int MIN_TEAMS = 1;
 
 void printScoreboard(vector < vector <int> >);
+int randomBetween(int, int);
 
 int main()
 {
+        srand((int) time(0));
         int periods;
         int teams;
         vector<vector<int> > board;
@@ -42,6 +46,16 @@ int main()
                 }
                 //once created, display the scoreboard
                 printScoreboard(board);
+
+                for ( int i = 0; i < board.size(); i++ )
+                {
+                        for ( int j = 0; j < board[i].size(); j++ )
+                        {
+                                board[i][j] = randomBetween(5,5);
+                        }
+                }
+
+                printScoreboard(board);
         }
         return 0;
 }
@@ -58,6 +72,19 @@ void printScoreboard(vector< vector<int> > grid)
                         cout<<grid[i][j]<<"|";
                 }
                 cout<<endl;
+        }
+}
+
+int randomBetween(int first, int second)
+{
+        if(first>second)
+        {
+                return second + rand()%(first-second+1);
+        }
+
+        else
+        {
+                return first + rand()%(second-first+1);
         }
 }
 
